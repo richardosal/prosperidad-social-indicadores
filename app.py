@@ -36,4 +36,21 @@ tipo_beneficio = st.selectbox("Tipo de beneficio", ["Monetario", "En especie", "
 rango_edad = st.slider("Edad", 0, 100, 30)
 
 # Botón grande para predicción
-if st
+if st.button("🔍 Generar Predicción", use_container_width=True):
+    datos = preparar_datos(
+        bancarizada, codigo_departamento, codigo_municipio, discapacidad,
+        estado_beneficiario, etnia, str(fecha_inscripcion), genero,
+        nivel_escolaridad, tipo_beneficio, rango_edad
+    )
+    
+    response = requests.post(
+        f"{DATAROBOT_HOST}/predApi/v1.0/deployments/{DATAROBOT_DEPLOYMENT_ID}/predictions",
+        headers=headers,
+        data=json.dumps({"data": [datos]}),
+    )
+    
+    if response.status_code == 200:
+        prediccion = response.json()["data"][0]["prediction"]
+        st.success(f"✅ Resultado de la predicción: {prediccion}")
+    else:
+        st.error("❌ Error al conectar con la API de DataRobot.")
