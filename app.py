@@ -1,18 +1,18 @@
 import streamlit as st
 
-# -----------------------------
+# ------------------------------------------------
 # CONFIGURACIÓN DE LA PÁGINA
-# -----------------------------
+# ------------------------------------------------
 st.set_page_config(
     page_title="Prosperidad Social",
     page_icon="🏛️",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
-# -----------------------------
-# ESTILOS CSS
-# -----------------------------
+# ------------------------------------------------
+# CSS
+# ------------------------------------------------
 st.markdown("""
 <style>
 
@@ -20,70 +20,68 @@ st.markdown("""
     background:#F4F7FA;
 }
 
-.titulo{
-    font-size:42px;
-    color:#0B5394;
-    font-weight:bold;
+h1{
+    color:#0056A3;
     text-align:center;
 }
 
-.subtitulo{
-    font-size:22px;
-    color:#3d3d3d;
+h3{
+    color:#4A4A4A;
     text-align:center;
-}
-
-.bloque{
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0px 0px 15px rgba(0,0,0,0.10);
-    margin-bottom:20px;
 }
 
 .stButton>button{
     width:100%;
-    height:65px;
-    font-size:22px;
-    font-weight:bold;
+    height:60px;
     border-radius:12px;
-    background:#0072CE;
+    background:#0066CC;
     color:white;
+    font-size:20px;
+    font-weight:bold;
 }
 
 .stButton>button:hover{
-    background:#009E60;
+    background:#00994D;
     color:white;
+}
+
+div[data-testid="stMetric"]{
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    box-shadow:0px 0px 8px rgba(0,0,0,0.15);
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# -----------------------------
+# ------------------------------------------------
 # ENCABEZADO
-# -----------------------------
+# ------------------------------------------------
 
-st.markdown("<div class='titulo'>🏛️ Prosperidad Social</div>", unsafe_allow_html=True)
+st.title("🏛️ Prosperidad Social")
 
-st.markdown("<div class='subtitulo'>Sistema Inteligente de Predicción de Beneficiarios</div>", unsafe_allow_html=True)
+st.subheader("Sistema Inteligente de Predicción de Beneficiarios")
 
-st.write("")
+st.write("---")
 
-# -----------------------------
-# INFORMACIÓN
-# -----------------------------
+# ------------------------------------------------
+# MÉTRICAS
+# ------------------------------------------------
 
-col1,col2,col3=st.columns(3)
+c1,c2,c3 = st.columns(3)
 
-with col1:
-    st.info("👤 Información del ciudadano")
+with c1:
+    st.metric("Modelo IA","Activo")
 
-with col2:
-    st.info("📍 Ubicación")
+with c2:
+    st.metric("Variables","20")
 
-with col3:
-    st.info("💰 Beneficios")
+with c3:
+    st.metric("Estado","Listo")
 
-st.divider()
+st.write("---")
 
-st.success("✅ La aplicación se está construyendo correctamente.")
+st.success("La aplicación se está construyendo correctamente.")
+
+st.info("En el siguiente paso agregaremos el formulario del modelo.")
