@@ -2,9 +2,9 @@
 
 """
 Usage:
-    predictsocial.py <input-file.csv> <output-file.csv> <deployment_id> [args]
+    predictsocial (2).py <input-file.csv> <output-file.csv> <deployment_id> [args]
 
-See predictsocial.py -h for more.
+See predictsocial (2).py -h for more.
 We highly recommend that you update SSL certificates with:
 
     pip install -U "urllib3[secure]" certifi
