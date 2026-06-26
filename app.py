@@ -1,56 +1,149 @@
 import streamlit as st
-import requests
-import json
-from predictsocial import preparar_datos
+from predictsocial import cargar_modelo, preparar_datos, predecir
 
-# Configuración API DataRobot
-DATAROBOT_API_KEY = ""
-DATAROBOT_DEPLOYMENT_ID = ""
-DATAROBOT_HOST = "https://app.datarobot.com"
+st.set_page_config(
+    page_title="Prosperidad Social IA",
+    page_icon="🏛️",
+    layout="wide"
+)
 
-headers = {
-    "Authorization": f"Bearer {DATAROBOT_API_KEY}",
-    "Content-Type": "application/json",
+st.markdown("""
+<style>
+.stButton>button{
+    width:100%;
+    height:60px;
+    font-size:22px;
+    border-radius:12px;
+    background:#0056A6;
+    color:white;
 }
 
-# Configuración de la página
-st.set_page_config(page_title="Prosperidad Social", layout="centered")
+div[data-baseweb="select"]{
+    font-size:20px;
+}
 
-# Encabezado institucional
-st.title("📊 Plataforma de Prosperidad Social")
-st.markdown("Interfaz oficial para análisis de beneficiarios. *Accesible, clara y fácil de usar.*")
+input{
+    font-size:20px !important;
+}
 
-# Formulario dinámico con variables del dataset
-st.header("Formulario de Beneficiario")
+h1{
+    color:#0056A6;
+}
 
-bancarizada = st.selectbox("¿Está bancarizada?", ["Sí", "No"])
-codigo_departamento = st.text_input("Código del Departamento de Atención")
-codigo_municipio = st.text_input("Código del Municipio de Atención")
-discapacidad = st.selectbox("¿Tiene discapacidad?", ["Sí", "No"])
-estado_beneficiario = st.selectbox("Estado del beneficiario", ["Activo", "Inactivo", "Suspendido"])
-etnia = st.selectbox("Etnia", ["Indígena", "Afrodescendiente", "Mestizo", "Otro"])
-fecha_inscripcion = st.date_input("Fecha de inscripción")
-genero = st.selectbox("Género", ["Masculino", "Femenino", "Otro"])
-nivel_escolaridad = st.selectbox("Nivel de escolaridad", ["Primaria", "Secundaria", "Universitaria", "Ninguno"])
-tipo_beneficio = st.selectbox("Tipo de beneficio", ["Monetario", "En especie", "Otro"])
-rango_edad = st.slider("Edad", 0, 100, 30)
+.block-container{
+    padding-top:2rem;
+}
+</style>
+""", unsafe_allow_html=True)
 
-# Botón grande para predicción
-if st.button("🔍 Generar Predicción", use_container_width=True):
-    datos = preparar_datos(
-        bancarizada, codigo_departamento, codigo_municipio, discapacidad,
-        estado_beneficiario, etnia, str(fecha_inscripcion), genero,
-        nivel_escolaridad, tipo_beneficio, rango_edad
+st.title("🏛️ Sistema Inteligente de Prosperidad Social")
+
+st.write(
+"""
+Esta aplicación utiliza Inteligencia Artificial para estimar el
+**Rango del Último Beneficio Asignado** de un beneficiario
+según sus características.
+"""
+)
+
+col1,col2=st.columns(2)
+
+with col1:
+
+    genero=st.selectbox(
+        "Género",
+        ["FEMENINO","MASCULINO"]
     )
-    
-    response = requests.post(
-        f"{DATAROBOT_HOST}/predApi/v1.0/deployments/{DATAROBOT_DEPLOYMENT_ID}/predictions",
-        headers=headers,
-        data=json.dumps({"data": [datos]}),
+
+    edad=st.selectbox(
+        "Rango de Edad",
+        [
+            "0-5",
+            "6-12",
+            "13-17",
+            "18-28",
+            "29-59",
+            "60+"
+        ]
     )
-    
-    if response.status_code == 200:
-        prediccion = response.json()["data"][0]["prediction"]
-        st.success(f"✅ Resultado de la predicción: {prediccion}")
-    else:
-        st.error("❌ Error al conectar con la API de DataRobot.")
+
+    escolaridad=st.selectbox(
+        "Nivel Escolaridad",
+        [
+            "NINGUNO",
+            "PRIMARIA",
+            "SECUNDARIA",
+            "TÉCNICO",
+            "TECNÓLOGO",
+            "UNIVERSITARIO"
+        ]
+    )
+
+    discapacidad=st.selectbox(
+        "Discapacidad",
+        ["SI","NO"]
+    )
+
+    etnia=st.selectbox(
+        "Etnia",
+        [
+            "NINGUNA",
+            "INDÍGENA",
+            "AFRO",
+            "ROM",
+            "RAIZAL"
+        ]
+    )
+
+with col2:
+
+    departamento=st.text_input("Departamento")
+
+    municipio=st.text_input("Municipio")
+
+    poblacion=st.text_input("Tipo de población")
+
+    estado=st.selectbox(
+        "Estado Beneficiario",
+        [
+            "ACTIVO",
+            "SUSPENDIDO",
+            "RETIRADO"
+        ]
+    )
+
+    bancarizado=st.selectbox(
+        "Bancarizado",
+        ["SI","NO"]
+    )
+
+    cantidad=st.number_input(
+        "Cantidad Beneficiarios",
+        1,
+        20,
+        1
+    )
+
+st.divider()
+
+if st.button("REALIZAR PREDICCIÓN"):
+
+    modelo=cargar_modelo()
+
+    datos=preparar_datos(
+        genero,
+        edad,
+        escolaridad,
+        discapacidad,
+        etnia,
+        departamento,
+        municipio,
+        poblacion,
+        estado,
+        bancarizado,
+        cantidad
+    )
+
+    resultado=predecir(modelo,datos)
+
+    st.success(f"Resultado estimado: {resultado}")
