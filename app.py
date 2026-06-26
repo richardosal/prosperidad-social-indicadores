@@ -1,7 +1,8 @@
+
 import streamlit as st
 import requests
 import json
-from predilsocial import preparar_datos
+from predictsocial import preparar_datos
 
 # Configuración API DataRobot
 DATAROBOT_API_KEY = ""
@@ -13,25 +14,27 @@ headers = {
     "Content-Type": "application/json",
 }
 
-# Interfaz institucional
+# Configuración de la página
 st.set_page_config(page_title="Prosperidad Social", layout="centered")
 
+# Encabezado institucional
 st.title("📊 Plataforma de Prosperidad Social")
-st.write("Aplicación oficial para análisis de beneficiarios. Interfaz sencilla y accesible.")
+st.markdown("Interfaz oficial para análisis de beneficiarios. *Accesible, clara y fácil de usar.*")
 
-# Formulario dinámico para variables
-st.header("Ingrese la información del beneficiario")
+# Formulario dinámico con variables del dataset
+st.header("Formulario de Beneficiario")
 
 bancarizada = st.selectbox("¿Está bancarizada?", ["Sí", "No"])
-genero = st.selectbox("Género", ["Masculino", "Femenino", "Otro"])
-edad = st.slider("Edad", 18, 100, 30)
-nivel_escolaridad = st.selectbox("Nivel de escolaridad", ["Primaria", "Secundaria", "Universitaria", "Ninguno"])
+codigo_departamento = st.text_input("Código del Departamento de Atención")
+codigo_municipio = st.text_input("Código del Municipio de Atención")
 discapacidad = st.selectbox("¿Tiene discapacidad?", ["Sí", "No"])
-etnia = st.selectbox("Etnia", ["Indígena", "Afrodescendiente", "Mestizo", "Otro"])
 estado_beneficiario = st.selectbox("Estado del beneficiario", ["Activo", "Inactivo", "Suspendido"])
+etnia = st.selectbox("Etnia", ["Indígena", "Afrodescendiente", "Mestizo", "Otro"])
+fecha_inscripcion = st.date_input("Fecha de inscripción")
+genero = st.selectbox("Género", ["Masculino", "Femenino", "Otro"])
+nivel_escolaridad = st.selectbox("Nivel de escolaridad", ["Primaria", "Secundaria", "Universitaria", "Ninguno"])
+tipo_beneficio = st.selectbox("Tipo de beneficio", ["Monetario", "En especie", "Otro"])
+rango_edad = st.slider("Edad", 0, 100, 30)
 
-# Botón de predicción
-if st.button("Generar Predicción"):
-    datos = preparar_datos(
-        bancarizada, genero, edad, nivel_escolaridad, discapacidad, etnia, estado_beneficiario
-    )
+# Botón grande para predicción
+if st
