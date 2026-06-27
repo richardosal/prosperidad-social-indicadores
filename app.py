@@ -65,7 +65,7 @@ st.subheader("Sistema Inteligente de Predicción de Beneficiarios")
 
 st.write("---")
 
-#Nueva linea de codigo prueba sabado 27
+#Nueva linea de codigo prueba sabado junio 27
 # ------------------------------------------------
 # SIDEBAR
 # ------------------------------------------------
