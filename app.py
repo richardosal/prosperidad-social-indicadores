@@ -65,6 +65,44 @@ st.subheader("Sistema Inteligente de Predicción de Beneficiarios")
 
 st.write("---")
 
+#Nueva linea de codigo prueba sabado 27
+# ------------------------------------------------
+# SIDEBAR
+# ------------------------------------------------
+
+with st.sidebar:
+
+    st.markdown("## 🏛️ Prosperidad Social")
+
+    st.markdown("---")
+
+    st.success("🟢 Modelo Activo")
+
+    st.info("EstadoBeneficiario")
+
+    st.metric(
+        label="Variables",
+        value="20"
+    )
+
+    st.metric(
+        label="Deployment",
+        value="Activo"
+    )
+
+    st.markdown("---")
+
+    st.write("### Información")
+
+    st.write("✔ Predicción mediante Inteligencia Artificial")
+
+    st.write("✔ DataRobot")
+
+    st.write("✔ Streamlit")
+
+    st.markdown("---")
+
+    st.caption("Versión 1.0")
 # ------------------------------------------------
 # MÉTRICAS
 # ------------------------------------------------
