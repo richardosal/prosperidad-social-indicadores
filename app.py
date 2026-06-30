@@ -77,7 +77,7 @@ with col2:
     deptos=opciones("nombredepartamentoatencion")
     dep=st.selectbox("departamento", deptos)
     muni_df=df[df["nombredepartamentoatencion"].astype(str)==dep] if "nombredepartamentoatencion" in df.columns else pd.DataFrame()
-    munis=sorted(muni_df["nombremunicipioAtencion"].dropna().astype(str).unique()) if not muni_df.empty else []
+    munis=sorted(muni_df["nombremunicipioatencion"].dropna().astype(str).unique()) if not muni_df.empty else []
     mun=st.selectbox("municipio", munis)
     banc=st.selectbox("bancarizado", opciones("bancarizado"))
     cantidad=st.number_input("cantidad beneficiarios",1,20,1)
