@@ -1,4 +1,5 @@
 import streamlit as st
+from datos import cargar_datos
 import pandas as pd
 
 st.set_page_config(page_title="Prosperidad Social",
@@ -32,6 +33,12 @@ df=cargar_datos()
 
 with st.sidebar:
     st.title("🏛️ Prosperidad Social")
+  # Cargar datos oficiales
+df = cargar_datos()
+
+if df.empty:
+    st.error("No fue posible cargar los datos de Prosperidad Social.")
+    st.stop()
     st.success("Sistema activo")
     st.metric("Variables", len(df.columns) if not df.empty else 0)
     st.metric("Registros", f"{len(df):,}" if not df.empty else "0")
