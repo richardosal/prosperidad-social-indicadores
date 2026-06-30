@@ -78,13 +78,17 @@ with col1:
 
 with col2:
     deptos=opciones("nombredepartamentoatencion")
-    dep=st.selectbox("departamento", deptos)
+    dep = st.selectbox("Departamento", deptos)
     muni_df=df[df["nombredepartamentoatencion"].astype(str)==dep] if "nombredepartamentoatencion" in df.columns else pd.DataFrame()
     munis=sorted(muni_df["nombremunicipioatencion"].dropna().astype(str).unique()) if not muni_df.empty else []
-    mun=st.selectbox("municipio", munis)
-    banc=st.selectbox("bancarizado", opciones("bancarizado"))
-    cantidad=st.number_input("cantidad beneficiarios",1,20,1)
-
+    mun = st.selectbox("Municipio", munis)
+    banc = st.selectbox("Bancarizado", opciones("bancarizado"))
+    cantidad = st.number_input(
+    "Cantidad de beneficiarios",
+    min_value=1,
+    max_value=20,
+    value=1
+)
 if st.button("🔍 Realizar predicción"):
 
     datos_prediccion = preparar_datos(
