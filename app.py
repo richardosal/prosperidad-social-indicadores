@@ -1,6 +1,9 @@
 import streamlit as st
-from datos import cargar_datos
 import pandas as pd
+
+from datos import cargar_datos
+from modelo import preparar_datos
+
 
 st.set_page_config(page_title="Prosperidad Social",
                    page_icon="🏛️",
@@ -82,9 +85,25 @@ with col2:
     banc=st.selectbox("bancarizado", opciones("bancarizado"))
     cantidad=st.number_input("cantidad beneficiarios",1,20,1)
 
-if st.button("Realizar predicción"):
-    st.success("La interfaz está lista. En este punto se conectará el modelo de DataRobot.")
-    st.metric("Resultado estimado","Pendiente de integrar IA")
+if st.button("🔍 Realizar predicción"):
+
+    datos_prediccion = preparar_datos(
+        genero,
+        etnia,
+        discapacidad,
+        estado,
+        rango,
+        dep,
+        mun,
+        banc,
+        cantidad
+    )
+
+    st.success("✅ Información preparada correctamente.")
+
+    st.subheader("Datos que se enviarán al modelo")
+
+    st.dataframe(datos_prediccion)
 
 st.divider()
 st.subheader("Vista previa del conjunto de datos")
