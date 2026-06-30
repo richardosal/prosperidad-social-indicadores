@@ -8,7 +8,58 @@ st.set_page_config(
     page_icon="🏛️",
     layout="wide",
     initial_sidebar_state="expanded"
+) import streamlit as st
+
+# ------------------------------------------------
+# CONFIGURACIÓN DE LA PÁGINA
+# ------------------------------------------------
+st.set_page_config(
+    page_title="Prosperidad Social",
+    page_icon="🏛️",
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
+
+# ← AQUÍ ES DONDE DEBES PEGAR EL MENÚ LATERAL
+
+with st.sidebar:
+
+    st.image(
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Escudo_de_Colombia.svg/240px-Escudo_de_Colombia.svg.png",
+        width=90
+    )
+
+    st.title("Prosperidad Social")
+
+    st.success("🟢 Modelo Activo")
+
+    st.info("""
+**Objetivo**
+
+Predecir el comportamiento de los beneficiarios mediante Inteligencia Artificial.
+""")
+
+    st.write("---")
+
+    st.metric("Variables", "20")
+
+    st.metric("Estado", "Disponible")
+
+    st.write("---")
+
+    st.caption("Versión 1.0")
+
+# ------------------------------------------------
+# CSS
+# ------------------------------------------------
+st.markdown("""
+<style>
+
+.main{
+    background:#F4F7FA;
+}
+
+...
 
 # ------------------------------------------------
 # CSS
