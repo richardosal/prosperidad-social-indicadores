@@ -67,19 +67,19 @@ def opciones(col):
 col1,col2=st.columns(2)
 
 with col1:
-    genero=st.selectbox("Género", opciones("Genero"))
-    etnia=st.selectbox("Etnia", opciones("Etnia"))
-    discapacidad=st.selectbox("Discapacidad", opciones("Discapacidad"))
-    estado=st.selectbox("Estado Beneficiario", opciones("EstadoBeneficiario"))
-    rango=st.selectbox("Rango Edad", opciones("RangoEdad"))
+    genero=st.selectbox("Género", opciones("genero"))
+    etnia=st.selectbox("Etnia", opciones("etnia"))
+    discapacidad=st.selectbox("Discapacidad", opciones("discapacidad"))
+    estado=st.selectbox("Estado Beneficiario", opciones("estadobeneficiario"))
+    rango=st.selectbox("Rango Edad", opciones("rangoedad"))
 
 with col2:
-    deptos=opciones("NombreDepartamentoAtencion")
-    dep=st.selectbox("Departamento", deptos)
+    deptos=opciones("nombredepartamentoatencion")
+    dep=st.selectbox("departamento", deptos)
     muni_df=df[df["NombreDepartamentoAtencion"].astype(str)==dep] if "NombreDepartamentoAtencion" in df.columns else pd.DataFrame()
     munis=sorted(muni_df["NombreMunicipioAtencion"].dropna().astype(str).unique()) if not muni_df.empty else []
     mun=st.selectbox("Municipio", munis)
-    banc=st.selectbox("Bancarizado", opciones("Bancarizado"))
+    banc=st.selectbox("bancarizado", opciones("bancarizado"))
     cantidad=st.number_input("Cantidad Beneficiarios",1,20,1)
 
 if st.button("Realizar predicción"):
